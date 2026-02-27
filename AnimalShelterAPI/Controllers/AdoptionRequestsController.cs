@@ -24,6 +24,27 @@ namespace AnimalShelterAPI.Controllers
             _sendGridApiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
         }
 
+        [HttpPost] public IActionResult CreateAdoptionRequest([FromBody] AdoptionRequestDto dto) {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var animal = _context.Animals.Find(dto.AnimalId);
+            if (animal == null) return NotFound("Životinja nije pronađena.");
+            var request = new AdoptionRequest { 
+                AnimalId = dto.AnimalId, 
+                FullName = dto.FullName, 
+                Email = dto.Email, 
+                Phone = dto.Phone, 
+                SentAt = DateTime.Now }; 
+            _context.AdoptionRequests.Add(request);
+            _context.SaveChanges();
+            return Ok(new { message = "Zahtev uspešno poslat." }); }
+        [HttpGet] public IActionResult GetAllRequests() {
+            var requests = _context.AdoptionRequests .Include(x => x.Animal) 
+                .ThenInclude(a => a.Status) 
+                .OrderByDescending(x => x.SentAt)
+                .Select(x => new { x.Id, x.FullName, x.Email, x.Phone, x.SentAt,
+                    Animal = new { x.Animal.Id, x.Animal.AnimalType, Status = x.Animal.Status.Name } }) .ToList(); 
+            return Ok(requests); }
+
         [HttpPost("{id}/approve")]
         public async Task<IActionResult> ApproveRequest(int id)
         {

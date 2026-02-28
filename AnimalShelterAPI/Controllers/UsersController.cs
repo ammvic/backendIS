@@ -14,6 +14,8 @@ using AnimalShelterAPI.Services;
 using AnimalShelterAPI.Models.DTO;
 using System.Net.Mail;
 using System.Net;
+using SendGrid.Helpers.Mail;
+using SendGrid;
 
 namespace AnimalShelterAPI.Controllers
 {
@@ -154,34 +156,40 @@ namespace AnimalShelterAPI.Controllers
             return Ok(users);
         }
 
-        [HttpPost("send-email")]
-        public IActionResult SendTaskEmail([FromBody] TaskEmailDto dto)
+
+[HttpPost("send-email")]
+    public async Task<IActionResult> SendTaskEmail([FromBody] TaskEmailDto dto)
+    {
+        try
         {
-            try
-            {
-                var message = new MailMessage();
-                message.To.Add(dto.Email);
-                message.Subject = "Novi zadatak";
-                message.Body = $"Zdravo {dto.FirstName} {dto.LastName},\n\n" +
-                               $"Dodeljen vam je zadatak:\n{dto.Task}";
-                message.From = new MailAddress("a.mmvic02@gmail.com");
+            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            var client = new SendGridClient(apiKey);
 
-                using (var client = new SmtpClient("smtp.gmail.com", 587))
-                {
-                    client.Credentials = new NetworkCredential("a.mmvic02@gmail.com", "rnmzkmtujdmjkfqn");
-                    client.EnableSsl = true;
-                    client.Send(message);
-                }
+            var from = new EmailAddress("a.mmvic02@gmail.com", "IS Sistem");
+            var to = new EmailAddress(dto.Email);
 
+            var subject = "Novi zadatak";
+            var plainTextContent = $"Zdravo {dto.FirstName} {dto.LastName},\n\nDodeljen vam je zadatak:\n{dto.Task}";
+            var htmlContent = $"<p>Zdravo <strong>{dto.FirstName} {dto.LastName}</strong>,</p>" +
+                              $"<p>Dodeljen vam je zadatak:</p>" +
+                              $"<p><strong>{dto.Task}</strong></p>";
+
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+            var response = await client.SendEmailAsync(msg);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
                 return Ok(new { message = "Zadatak poslat!" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-        }
 
-        public class TaskEmailDto
+            return BadRequest(new { error = "Greška pri slanju email-a." });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+
+    public class TaskEmailDto
         {
             public string Email { get; set; }
             public string Task { get; set; }

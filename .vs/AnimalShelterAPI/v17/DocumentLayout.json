@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Laptop\\Desktop\\AnimalShelterAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|c:\\users\\laptop\\desktop\\animalshelterapi\\animalshelterapi\\animalshelterapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|solutionrelative:animalshelterapi\\animalshelterapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|c:\\users\\laptop\\desktop\\animalshelterapi\\animalshelterapi\\controllers\\adoptionrequestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|solutionrelative:animalshelterapi\\controllers\\adoptionrequestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|c:\\users\\laptop\\desktop\\animalshelterapi\\animalshelterapi\\services\\reportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|solutionrelative:animalshelterapi\\services\\reportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|c:\\users\\laptop\\desktop\\animalshelterapi\\animalshelterapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|solutionrelative:animalshelterapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|c:\\users\\laptop\\desktop\\animalshelterapi\\animalshelterapi\\animalshelterapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{110F71F0-E343-487B-9BB3-07033A1111A9}|AnimalShelterAPI\\AnimalShelterAPI.csproj|solutionrelative:animalshelterapi\\animalshelterapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -79,7 +83,33 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AnimalShelterAPI",
+              "Title": "AdoptionRequestsController.cs",
+              "DocumentMoniker": "C:\\Users\\Laptop\\Desktop\\AnimalShelterAPI\\AnimalShelterAPI\\Controllers\\AdoptionRequestsController.cs",
+              "RelativeDocumentMoniker": "AnimalShelterAPI\\Controllers\\AdoptionRequestsController.cs",
+              "ToolTip": "C:\\Users\\Laptop\\Desktop\\AnimalShelterAPI\\AnimalShelterAPI\\Controllers\\AdoptionRequestsController.cs",
+              "RelativeToolTip": "AnimalShelterAPI\\Controllers\\AdoptionRequestsController.cs",
+              "ViewState": "AQIAAEoAAAAAAAAAAAAAAFUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T09:22:01.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Laptop\\Desktop\\AnimalShelterAPI\\AnimalShelterAPI\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "AnimalShelterAPI\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\Laptop\\Desktop\\AnimalShelterAPI\\AnimalShelterAPI\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "AnimalShelterAPI\\Controllers\\UsersController.cs",
+              "ViewState": "AQIAAHAAAAAAAAAAAAAAAIIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T09:18:48.635Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AnimalShelterAPI.csproj",
               "DocumentMoniker": "C:\\Users\\Laptop\\Desktop\\AnimalShelterAPI\\AnimalShelterAPI\\AnimalShelterAPI.csproj",
               "RelativeDocumentMoniker": "AnimalShelterAPI\\AnimalShelterAPI.csproj",
               "ToolTip": "C:\\Users\\Laptop\\Desktop\\AnimalShelterAPI\\AnimalShelterAPI\\AnimalShelterAPI.csproj",
@@ -87,19 +117,6 @@
               "ViewState": "AQIAAAgAAAAAAAAAAAAAAB0AAABjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2026-02-28T09:07:39.673Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ReportService.cs",
-              "DocumentMoniker": "C:\\Users\\Laptop\\Desktop\\AnimalShelterAPI\\AnimalShelterAPI\\Services\\ReportService.cs",
-              "RelativeDocumentMoniker": "AnimalShelterAPI\\Services\\ReportService.cs",
-              "ToolTip": "C:\\Users\\Laptop\\Desktop\\AnimalShelterAPI\\AnimalShelterAPI\\Services\\ReportService.cs",
-              "RelativeToolTip": "AnimalShelterAPI\\Services\\ReportService.cs",
-              "ViewState": "AQIAAJUAAAAAAAAAAAAgwK4AAAA/AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-28T09:03:26.149Z",
               "EditorCaption": ""
             },
             {

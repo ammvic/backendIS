@@ -135,7 +135,10 @@ namespace AnimalShelterAPI.Controllers
         public async Task<IActionResult> AssignTask(string id, [FromBody] TaskAssignmentDto taskDto)
         {
             var user = await _userManager.FindByIdAsync(id);
-            
+
+            if (user == null)
+                return NotFound("Korisnik nije pronađen.");
+
             var task = new TaskAssignment
             {
                 EmployeeId = id,
@@ -144,52 +147,64 @@ namespace AnimalShelterAPI.Controllers
                 DueDate = taskDto.DueDate
             };
 
-            _dbContext.TaskAssignments.Add(task); 
+            _dbContext.TaskAssignments.Add(task);
             await _dbContext.SaveChangesAsync();
 
-            return Ok("Zadatak uspešno dodeljen.");
+            // 🔥 POŠALJI EMAIL AUTOMATSKI
+            await SendTaskEmail(new TaskEmailDto
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Task = taskDto.TaskDescription
+            });
+
+            return Ok("Zadatak uspešno dodeljen i email poslat.");
         }
-        [HttpGet("all-users")]
-        public async Task<IActionResult> Get()
+
+
+        private async Task SendTaskEmail(TaskEmailDto dto)
         {
-            var users = await _userService.GetNonAdminUsers(); // Koristi metodu za filtrirane korisnike
-            return Ok(users);
+            try
+            {
+                var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+                var client = new SendGridClient(apiKey);
+
+                var from = new EmailAddress("a.mmvic02@gmail.com", "IS Sistem");
+                var to = new EmailAddress(dto.Email);
+
+                var subject = "Novi zadatak 📝";
+
+                var plainTextContent =
+        $@"Zdravo {dto.FirstName} {dto.LastName},
+
+Dodeljen vam je novi zadatak:
+
+{dto.Task}
+
+IS Sistem";
+
+                var htmlContent =
+        $@"<div style='font-family:Arial;padding:20px'>
+<h2>Novi zadatak 📝</h2>
+<p>Zdravo <strong>{dto.FirstName} {dto.LastName}</strong>,</p>
+<p>Dodeljen vam je novi zadatak:</p>
+<p style='background:#f4f4f4;padding:10px;border-radius:5px'>
+<strong>{dto.Task}</strong>
+</p>
+<p>IS Sistem</p>
+</div>";
+
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                await client.SendEmailAsync(msg);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Greška pri slanju email-a: " + ex.Message);
+            }
         }
 
-
-[HttpPost("send-email")]
-    public async Task<IActionResult> SendTaskEmail([FromBody] TaskEmailDto dto)
-    {
-        try
-        {
-            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
-            var client = new SendGridClient(apiKey);
-
-            var from = new EmailAddress("a.mmvic02@gmail.com", "IS Sistem");
-            var to = new EmailAddress(dto.Email);
-
-            var subject = "Novi zadatak";
-            var plainTextContent = $"Zdravo {dto.FirstName} {dto.LastName},\n\nDodeljen vam je zadatak:\n{dto.Task}";
-            var htmlContent = $"<p>Zdravo <strong>{dto.FirstName} {dto.LastName}</strong>,</p>" +
-                              $"<p>Dodeljen vam je zadatak:</p>" +
-                              $"<p><strong>{dto.Task}</strong></p>";
-
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-
-            var response = await client.SendEmailAsync(msg);
-
-            if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
-                return Ok(new { message = "Zadatak poslat!" });
-
-            return BadRequest(new { error = "Greška pri slanju email-a." });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
-    }
-
-    public class TaskEmailDto
+        public class TaskEmailDto
         {
             public string Email { get; set; }
             public string Task { get; set; }

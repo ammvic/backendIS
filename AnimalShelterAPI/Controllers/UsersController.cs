@@ -1,21 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AnimalShelterAPI.Models.DTO;
 using AnimalShelterAPI.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
-using System;
-using System.Threading.Tasks;
-using System.Linq;
 using AnimalShelterAPI.Services.Interfaces;
-using AnimalShelterAPI.Services;
-using AnimalShelterAPI.Models.DTO;
-using System.Net.Mail;
-using System.Net;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using SendGrid.Helpers.Mail;
 using SendGrid;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using System;
+using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace AnimalShelterAPI.Controllers
 {
@@ -47,7 +44,8 @@ namespace AnimalShelterAPI.Controllers
         public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
         {
             var user = new User
-            {   FirstName = userDTO.FirstName,
+            {
+                FirstName = userDTO.FirstName,
                 LastName = userDTO.LastName,
                 UserName = userDTO.Email,
                 Email = userDTO.Email,
@@ -160,6 +158,12 @@ namespace AnimalShelterAPI.Controllers
             });
 
             return Ok("Zadatak uspešno dodeljen i email poslat.");
+        }
+        [HttpGet("all-users")]
+        public async Task<IActionResult> Get()
+        {
+            var users = await _userService.GetNonAdminUsers(); // Koristi metodu za filtrirane korisnike
+            return Ok(users);
         }
 
 

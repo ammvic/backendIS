@@ -204,7 +204,8 @@ IS Sistem";
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Greška pri slanju email-a: " + ex.Message);
+                Console.WriteLine("SENDGRID ERROR: " + ex.ToString());
+                throw; // 🔥 neka pukne da vidiš pravi problem
             }
         }
 

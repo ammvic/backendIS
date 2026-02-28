@@ -174,7 +174,7 @@ namespace AnimalShelterAPI.Controllers
                 var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
                 var client = new SendGridClient(apiKey);
 
-                var from = new EmailAddress("a.mmvic02@gmail.com", "IS Sistem");
+                var from = new EmailAddress("a.mmvic02@gmail.com", "Animal Shelter");
                 var to = new EmailAddress(dto.Email);
 
                 var subject = "Novi zadatak 📝";
